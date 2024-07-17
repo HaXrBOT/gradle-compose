@@ -93,13 +93,14 @@ public class App {
 						releaseText.append("          curseforge-id: " + data.replacements.get("curseforgeid") + "\n");
 						releaseText.append("          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}\n");
 						releaseText.append("          loaders: " + getModloaderName(version).toLowerCase() + "\n");
-						releaseText.append("          name: " + data.replacements.get("name") + "v${{github.ref_name}}-" + "\n");
+						releaseText.append("          name: " + data.replacements.get("name") + " v${{github.ref_name}}" + "\n");
 						if (isForgelike(version)) {
 							releaseText.append("          version-type: beta\n");
 						}
 						releaseText.append("          files: 'versions/" + version
 								+ "/build/libs/!(*-@(dev|sources|javadoc|all)).jar'\n");
 						releaseText.append("          game-versions: " + getMCVersion(version) + "\n");
+						releaseText.append("          dependencies: " + data.replacements.get("mcpublish_dependencies") + "\n");
 					}
 					if (data.enabledFlags.contains("modrinth")) {
 						// Modrinth releases
@@ -110,10 +111,11 @@ public class App {
 						releaseText.append("          modrinth-id: " + data.replacements.get("modrinthid") + "\n");
 						releaseText.append("          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}\n");
 						releaseText.append("          loaders: " + getModloaderName(version).toLowerCase() + "\n");
-						releaseText.append("          name: " + data.replacements.get("name") + "v${{github.ref_name}}-" + "\n");
+						releaseText.append("          name: " + data.replacements.get("name") + " v${{github.ref_name}}" + "\n");
 						releaseText.append("          files: 'versions/" + version
 								+ "/build/libs/!(*-@(dev|sources|javadoc|all)).jar'\n");
 						releaseText.append("          game-versions: " + getMCVersion(version) + "\n");
+						releaseText.append("          dependencies: " + data.replacements.get("mcpublish_dependencies") + "\n");
 					}
 				}
 				data.replacements.put("autoreleasesteps", releaseText.toString());
